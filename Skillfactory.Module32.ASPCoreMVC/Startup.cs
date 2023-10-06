@@ -21,6 +21,9 @@ public class Startup
             app.UseDeveloperExceptionPage();
         }
 
+        Console.WriteLine($"Launching project from: {env.ContentRootPath}");
+        app.UseStaticFiles();
+
         app.UseRouting();
 
         app.UseMiddleware<LoggingMiddleware>();
