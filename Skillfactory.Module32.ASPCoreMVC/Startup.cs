@@ -23,9 +23,7 @@ public class Startup
 
         Console.WriteLine($"Launching project from: {env.ContentRootPath}");
         app.UseStaticFiles();
-
         app.UseRouting();
-
         app.UseMiddleware<LoggingMiddleware>();
 
         app.UseEndpoints(endpoints =>
