@@ -2,15 +2,16 @@
 
 public class Startup
 {
-    // Метод вызывается средой ASP.NET.
-    // Используйте его для подключения сервисов приложения
-    // Документация:  https://go.microsoft.com/fwlink/?LinkID=398940
+    public IWebHostEnvironment WebHotsEnviroment { get; }
+
+    public Startup(IWebHostEnvironment env)
+    {
+       WebHotsEnviroment = env;
+    }
     public void ConfigureServices(IServiceCollection services)
     {
     }
 
-    // Метод вызывается средой ASP.NET.
-    // Используйте его для настройки конвейера запросов
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
         if (env.IsDevelopment() || env.IsStaging())
@@ -20,9 +21,34 @@ public class Startup
 
         app.UseRouting();
 
+        app.Use(async (context, next) =>
+        {
+            // Simple Logging http context.
+            Console.WriteLine($"[{DateTime.Now}]: New request to http://{context.Request.Host.Value + context.Request.Path}");
+            await next.Invoke();
+        });
+
+        app.Map("/about", About);
+
         app.UseEndpoints(endpoints =>
         {
-            endpoints.MapGet("/", async context => { await context.Response.WriteAsync($"Hello World! Config: {env.EnvironmentName}"); });
+            endpoints.MapGet("/config", async context =>
+            {
+                await context.Response.WriteAsync($"App name: {env.ApplicationName}. App running configuration: {env.EnvironmentName}");
+            });
+        });
+
+        app.Run(async (context) =>
+        {
+            await context.Response.WriteAsync($"Welcome to the {env.ApplicationName}!");
+        });
+    }
+
+    private void About(IApplicationBuilder app)
+    {
+        app.Run(async context =>
+        {
+            await context.Response.WriteAsync($"{WebHotsEnviroment.ApplicationName} - ASP.Net Core tutorial project");
         });
     }
 }
