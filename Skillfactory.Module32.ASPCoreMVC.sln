@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33723.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skillfactory.Module32.ASPCoreMVC", "Skillfactory.Module32.ASPCoreMVC\Skillfactory.Module32.ASPCoreMVC.csproj", "{28A223C4-77F6-47FF-82D3-5912C096932E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{28A223C4-77F6-47FF-82D3-5912C096932E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28A223C4-77F6-47FF-82D3-5912C096932E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28A223C4-77F6-47FF-82D3-5912C096932E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28A223C4-77F6-47FF-82D3-5912C096932E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F4A8D46F-6501-4A06-A3D3-748368C81696}
+	EndGlobalSection
+EndGlobal
