@@ -2,11 +2,11 @@
 
 public class Startup
 {
-    public IWebHostEnvironment WebHotsEnviroment { get; }
+    public IWebHostEnvironment WebHostEnv { get; }
 
     public Startup(IWebHostEnvironment env)
     {
-       WebHotsEnviroment = env;
+        WebHostEnv = env;
     }
     public void ConfigureServices(IServiceCollection services)
     {
@@ -28,19 +28,20 @@ public class Startup
             await next.Invoke();
         });
 
-        app.Map("/about", About);
-
         app.UseEndpoints(endpoints =>
         {
-            endpoints.MapGet("/config", async context =>
+            endpoints.MapGet("/", async context =>
             {
-                await context.Response.WriteAsync($"App name: {env.ApplicationName}. App running configuration: {env.EnvironmentName}");
+                await context.Response.WriteAsync($"Welcome to the {env.ApplicationName}!");
             });
         });
 
+        app.Map("/about", About);
+        app.Map("/config", ConfigInfo);
+
         app.Run(async (context) =>
         {
-            await context.Response.WriteAsync($"Welcome to the {env.ApplicationName}!");
+            await context.Response.WriteAsync($"Page not found");
         });
     }
 
@@ -48,7 +49,15 @@ public class Startup
     {
         app.Run(async context =>
         {
-            await context.Response.WriteAsync($"{WebHotsEnviroment.ApplicationName} - ASP.Net Core tutorial project");
+            await context.Response.WriteAsync($"{WebHostEnv.ApplicationName} - ASP.Net Core tutorial project");
+        });
+    }
+
+    private void ConfigInfo(IApplicationBuilder app)
+    {
+        app.Run(async context =>
+        {
+            await context.Response.WriteAsync($"App name: {WebHostEnv.ApplicationName}. App running configuration: {WebHostEnv.EnvironmentName}");
         });
     }
 }
