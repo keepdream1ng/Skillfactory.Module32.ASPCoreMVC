@@ -1,4 +1,6 @@
-﻿namespace Skillfactory.Module32.ASPCoreMVC;
+﻿using Skillfactory.Module32.ASPCoreMVC.Middleware;
+
+namespace Skillfactory.Module32.ASPCoreMVC;
 
 public class Startup
 {
@@ -21,12 +23,7 @@ public class Startup
 
         app.UseRouting();
 
-        app.Use(async (context, next) =>
-        {
-            // Simple Logging http context.
-            Console.WriteLine($"[{DateTime.Now}]: New request to http://{context.Request.Host.Value + context.Request.Path}");
-            await next.Invoke();
-        });
+        app.UseMiddleware<LoggingMiddleware>();
 
         app.UseEndpoints(endpoints =>
         {
